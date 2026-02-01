@@ -123,6 +123,7 @@ const themeToggleBtn = document.getElementById('theme-toggle');
 function init() {
     renderIngredients();
     calculateTotal();
+    initRecipeCheckboxes(); // New function call
     
     // Event Listeners
     cookieCountInput.addEventListener('input', calculateTotal);
@@ -139,6 +140,21 @@ function init() {
         document.body.classList.toggle('dark-mode');
         const isDark = document.body.classList.contains('dark-mode');
         themeToggleBtn.textContent = isDark ? '☀️' : '🌙';
+    });
+}
+
+// Recipe Checkbox Logic
+function initRecipeCheckboxes() {
+    const checkboxes = document.querySelectorAll('.step-checkbox');
+    checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', (e) => {
+            const stepCard = e.target.closest('.recipe-step');
+            if (e.target.checked) {
+                stepCard.classList.add('completed');
+            } else {
+                stepCard.classList.remove('completed');
+            }
+        });
     });
 }
 

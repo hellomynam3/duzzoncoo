@@ -28,3 +28,6 @@
 2.  **CSS 스타일링:** CSS Variables, Flexbox/Grid, 모던 CSS 기능 활용. (완료)
 3.  **JavaScript 로직:** 재료 데이터 객체 정의, 계산기 로직 구현, DOM 조작. (완료)
 4.  **외부 데이터 연동:** `https://github.com/hellomynam3/dubaizzon`의 재료 데이터를 통합하고 네이버 쇼핑 검색 링크를 연결함. (완료)
+5.  **레시피 강화:** (완료)
+    *   **Preparation 단계 추가:** 재료 준비(Mise en place) 단계 추가.
+    *   **인터랙티브 체크박스:** 각 레시피 단계에 완료 체크박스 추가 및 스타일링(취소선, 불투명도 처리) 구현.
