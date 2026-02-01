@@ -4,38 +4,42 @@ const ingredientsData = [
     {
         id: 'kataifi',
         name: '카다이프 면 (Kataifi)',
-        unit: '100g', // 기준 단위 통일
-        pricePerUnit: 2580, // 500g 12,900원 기준
+        unit: '100g',
+        pricePerUnit: 2580,
         gramsPerCookie: 15,
         emoji: '🍝',
-        link: 'https://search.shopping.naver.com/search/all?query=카다이프+면'
+        searchKeyword: '카다이프 면',
+        tip: '비싸거나 구하기 어렵다면? 얇은 소면이나 건면을 잘게 부수어 버터에 튀기듯 볶아보세요! 실제 식감과 놀랍도록 비슷합니다.'
     },
     {
         id: 'pistachio-spread',
         name: '피스타치오 스프레드',
         unit: '100g',
-        pricePerUnit: 9250, // 200g 18,500원 기준
+        pricePerUnit: 9250,
         gramsPerCookie: 20,
         emoji: '🥜',
-        link: 'https://search.shopping.naver.com/search/all?query=피스타치오+스프레드'
+        searchKeyword: '피스타치오 스프레드',
+        tip: '꾸덕한 식감을 원하시면 화이트 초콜릿을 살짝 섞어보세요. 100% 피스타치오 페이스트를 쓰면 단맛은 줄고 고소함이 폭발합니다!'
     },
     {
         id: 'dark-chocolate',
         name: '커버춰 다크 초콜릿',
         unit: '100g',
-        pricePerUnit: 990, // 1kg 9,900원 기준
+        pricePerUnit: 990,
         gramsPerCookie: 30,
         emoji: '🍫',
-        link: 'https://search.shopping.naver.com/search/all?query=커버춰+다크초콜릿'
+        searchKeyword: '커버춰 다크초콜릿',
+        tip: '코팅용(컴파운드) 초콜릿은 템퍼링이 필요 없어 편하지만, 맛은 커버춰가 훨씬 깊습니다. 초보자라면 코팅용을 추천해요.'
     },
     {
         id: 'butter',
         name: '무염 버터',
         unit: '100g',
-        pricePerUnit: 1888, // 450g 8,500원 기준
+        pricePerUnit: 1888,
         gramsPerCookie: 10,
         emoji: '🧈',
-        link: 'https://search.shopping.naver.com/search/all?query=무염버터'
+        searchKeyword: '무염버터',
+        tip: '일반 버터 대신 발효 버터(고메 버터)를 사용하면 카다이프를 볶을 때 풍미가 훨씬 깊고 고급스러워집니다.'
     }
 ];
 
@@ -44,6 +48,17 @@ const cookieCountInput = document.getElementById('cookie-count');
 const totalPriceElement = document.getElementById('total-price');
 const ingredientsListContainer = document.getElementById('ingredients-list');
 
+// Modal Elements
+const modal = document.getElementById('ingredient-modal');
+const closeModalBtn = document.querySelector('.close-modal');
+const modalEmoji = document.getElementById('modal-emoji');
+const modalTitle = document.getElementById('modal-title');
+const modalDesc = document.getElementById('modal-desc');
+const modalLinks = document.getElementById('modal-links');
+
+// Theme Toggle
+const themeToggleBtn = document.getElementById('theme-toggle');
+
 // Initialize
 function init() {
     renderIngredients();
@@ -51,6 +66,19 @@ function init() {
     
     // Event Listeners
     cookieCountInput.addEventListener('input', calculateTotal);
+    
+    // Modal Close Events
+    closeModalBtn.addEventListener('click', closeModal);
+    window.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+    });
+
+    // Theme Toggle
+    themeToggleBtn.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+        const isDark = document.body.classList.contains('dark-mode');
+        themeToggleBtn.textContent = isDark ? '☀️' : '🌙';
+    });
 }
 
 // Render Ingredient Cards
@@ -64,12 +92,45 @@ function renderIngredients() {
                 <h3>${ing.name}</h3>
                 <p class="unit-price">기준: ${ing.unit}</p>
                 <span class="price-tag">${formatCurrency(ing.pricePerUnit)}</span>
-                <a href="${ing.link}" class="buy-btn" target="_blank" rel="noopener noreferrer">
-                    최저가 검색하기
-                </a>
+                <button class="buy-btn" onclick="openModal('${ing.id}')">
+                    🔍 가격 비교 & 팁
+                </button>
             </div>
         </article>
     `).join('');
+}
+
+// Open Modal
+window.openModal = function(id) {
+    const ing = ingredientsData.find(item => item.id === id);
+    if (!ing) return;
+
+    modalEmoji.textContent = ing.emoji;
+    modalTitle.textContent = ing.name;
+    modalDesc.textContent = ing.tip;
+
+    // Generate Shopping Links
+    const queries = [
+        { name: '네이버 쇼핑', url: 'https://search.shopping.naver.com/search/all?query=', class: 'shop-naver' },
+        { name: '쿠팡', url: 'https://www.coupang.com/np/search?q=', class: 'shop-coupang' },
+        { name: 'SSG 쓱', url: 'https://www.ssg.com/search.ssg?query=', class: 'shop-ssg' },
+        { name: '마켓컬리', url: 'https://www.kurly.com/search?keyword=', class: 'shop-kurly' }
+    ];
+
+    modalLinks.innerHTML = queries.map(shop => `
+        <a href="${shop.url}${encodeURIComponent(ing.searchKeyword)}" 
+           class="shop-link ${shop.class}" 
+           target="_blank" 
+           rel="noopener noreferrer">
+           ${shop.name} 검색
+        </a>
+    `).join('');
+
+    modal.classList.remove('hidden');
+}
+
+function closeModal() {
+    modal.classList.add('hidden');
 }
 
 // Calculate Total Cost
