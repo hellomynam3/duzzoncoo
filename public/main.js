@@ -1,11 +1,11 @@
 // Mock Data for Ingredients
-// Data Source: https://github.com/hellomynam3/dubaizzon (ingredients.ts)
+// Data Source: 몬트쿠키 원조 레시피 기반 재구성
 const ingredientsData = [
-    // --- Core Ingredients (Filling & Topping) ---
+    // --- Core Ingredients (Filling) ---
     {
         id: 'kataifi',
         type: 'core',
-        name: '카다이프 면 (Kataifi)',
+        name: '카다이프 면',
         unit: '100g',
         pricePerUnit: 2580,
         gramsPerCookie: 15,
@@ -25,15 +25,15 @@ const ingredientsData = [
         tip: '꾸덕한 식감을 원하시면 화이트 초콜릿을 살짝 섞어보세요. 100% 피스타치오 페이스트를 쓰면 단맛은 줄고 고소함이 폭발합니다!'
     },
     {
-        id: 'dark-chocolate',
+        id: 'white-chocolate',
         type: 'core',
-        name: '커버춰 다크 초콜릿',
+        name: '화이트 커버춰 (필링용)',
         unit: '100g',
-        pricePerUnit: 990,
-        gramsPerCookie: 30,
+        pricePerUnit: 2200, // 1kg 22,000원 가정
+        gramsPerCookie: 5,
         emoji: '🍫',
-        searchKeyword: '커버춰 다크초콜릿',
-        tip: '코팅용(컴파운드) 초콜릿은 템퍼링이 필요 없어 편하지만, 맛은 커버춰가 훨씬 깊습니다. 초보자라면 코팅용을 추천해요.'
+        searchKeyword: '커버춰 화이트초콜릿',
+        tip: '필링을 단단하게 굳히는 접착제 역할을 합니다. 코팅용(컴파운드)보다는 커버춰가 맛이 좋습니다.'
     },
     {
         id: 'butter',
@@ -41,44 +41,55 @@ const ingredientsData = [
         name: '무염 버터 (필링+반죽)',
         unit: '100g',
         pricePerUnit: 1888,
-        gramsPerCookie: 25, // 필링 10g + 반죽 15g
+        gramsPerCookie: 4, // 필링볶음용 2g + 반죽용 2g
         emoji: '🧈',
         searchKeyword: '무염버터',
-        tip: '일반 버터 대신 발효 버터(고메 버터)를 사용하면 카다이프를 볶을 때 풍미가 훨씬 깊고 고급스러워집니다.'
+        tip: '카다이프를 볶을 때와 마시멜로를 녹일 때 모두 사용됩니다. 풍미 좋은 고메 버터를 추천합니다.'
     },
-    // --- Dough Ingredients (Cookie Base) ---
+    // --- Dough Ingredients (Marshmallow Base) ---
     {
-        id: 'flour',
+        id: 'marshmallow',
         type: 'dough',
-        name: '중력분 (밀가루)',
-        unit: '1kg',
-        pricePerUnit: 250, // 1kg 2500원 -> 100g 250원
-        gramsPerCookie: 20,
-        emoji: '🌾',
-        searchKeyword: '중력분',
-        tip: '쿠키의 쫀득한 식감을 위해서는 박력분보다는 단백질 함량이 적당한 중력분을 사용하는 것이 좋습니다.'
-    },
-    {
-        id: 'sugar',
-        type: 'dough',
-        name: '설탕 (황설탕/백설탕)',
-        unit: '1kg',
-        pricePerUnit: 200, // 1kg 2000원 -> 100g 200원
-        gramsPerCookie: 15,
-        emoji: '🧂',
-        searchKeyword: '황설탕',
-        tip: '황설탕은 쿠키에 수분감과 쫀득함을 주고, 백설탕은 바삭함을 줍니다. 두 가지를 섞어 쓰는 것이 베스트!'
+        name: '마시멜로 (흰색)',
+        unit: '100g',
+        pricePerUnit: 1000, // 1kg 10,000원 가정
+        gramsPerCookie: 13,
+        emoji: '☁️',
+        searchKeyword: '바비큐 마시멜로',
+        tip: '구워 먹는 큰 마시멜로(바비큐용)가 잘 녹습니다. 반드시 약불에서 인내심을 갖고 녹여주세요.'
     },
     {
-        id: 'egg',
+        id: 'skim-milk',
         type: 'dough',
-        name: '계란 (특란)',
-        unit: '10구(약 500g)',
-        pricePerUnit: 800, // 10구 4000원 -> 500g 4000원 -> 100g 800원
-        gramsPerCookie: 5, // 쿠키 10개당 계란 1개(50g) 사용 가정
-        emoji: '🥚',
-        searchKeyword: '동물복지 유정란',
-        tip: '실온에 미리 꺼내두어 찬기를 뺀 계란을 사용해야 버터와 분리되지 않고 매끄럽게 유화됩니다.'
+        name: '탈지분유/전지분유',
+        unit: '100g',
+        pricePerUnit: 1500,
+        gramsPerCookie: 1,
+        emoji: '🥛',
+        searchKeyword: '탈지분유',
+        tip: '분유를 넣으면 고급스러운 우유 풍미와 쫀득한 점도가 생깁니다. 없으면 생략 가능하지만 넣는 것을 추천!'
+    },
+    {
+        id: 'cocoa-powder',
+        type: 'dough',
+        name: '코코아 파우더',
+        unit: '100g',
+        pricePerUnit: 2500, // 발로나 등 고급 기준
+        gramsPerCookie: 3, // 반죽용 + 겉면 코팅용
+        emoji: '🍫',
+        searchKeyword: '발로나 코코아파우더',
+        tip: '색과 향을 내는 중요한 재료입니다. 무가당 코코아 파우더를 사용하세요.'
+    },
+    {
+        id: 'cooking-oil',
+        type: 'dough',
+        name: '식용유 (성형용)',
+        unit: '100ml',
+        pricePerUnit: 500,
+        gramsPerCookie: 1, // 소량 사용
+        emoji: '🌻',
+        searchKeyword: '카놀라유',
+        tip: '마시멜로 반죽은 끈적임이 엄청납니다! 손과 도구에 기름을 충분히 발라야 모양을 잡을 수 있습니다.'
     }
 ];
 
@@ -131,7 +142,7 @@ function renderIngredients() {
             <div class="card-content">
                 <h3>${ing.name}</h3>
                 <p class="unit-price">기준: ${ing.unit}</p>
-                <span class="price-tag">${formatCurrency(ing.pricePerUnit)} <small style="font-size:0.8rem; font-weight:normal;">/100g</small></span>
+                <span class="price-tag">${formatCurrency(ing.pricePerUnit)} <small style="font-size:0.8rem; font-weight:normal;">/100g(ml)</small></span>
                 <button class="buy-btn" onclick="openModal('${ing.id}')">
                     🔍 가격 비교 & 팁
                 </button>
