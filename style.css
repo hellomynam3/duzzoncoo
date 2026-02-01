@@ -1,1 +1,274 @@
-/* Add styles here */
+:root {
+    /* Color Palette */
+    --color-pistachio: #93C572;
+    --color-pistachio-dark: #7dae5e;
+    --color-chocolate: #3E2723;
+    --color-chocolate-light: #5D4037;
+    --color-cream: #FAF3E0;
+    --color-white: #ffffff;
+    --color-gray-100: #f5f5f5;
+    --color-gray-500: #757575;
+    --color-shadow: rgba(62, 39, 35, 0.15);
+
+    /* Typography */
+    --font-heading: 'Playfair Display', serif;
+    --font-body: 'Noto Sans KR', sans-serif;
+
+    /* Spacing */
+    --container-width: 1000px;
+    --radius-md: 12px;
+    --radius-lg: 20px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: --font-body;
+    background-color: var(--color-cream);
+    color: var(--color-chocolate);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: var(--container-width);
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Hero Section */
+.hero {
+    background: linear-gradient(135deg, var(--color-chocolate), var(--color-chocolate-light));
+    color: var(--color-cream);
+    padding: 80px 0;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.hero h1 {
+    font-family: var(--font-heading);
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+
+.hero p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+/* Sections */
+section {
+    margin-bottom: 60px;
+}
+
+h2 {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    margin-bottom: 24px;
+    color: var(--color-chocolate);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Calculator */
+.calculator-card {
+    background: var(--color-white);
+    padding: 40px;
+    border-radius: var(--radius-lg);
+    box-shadow: 0 10px 30px var(--color-shadow);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.input-group label {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
+
+.input-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+input[type="number"] {
+    font-size: 1.5rem;
+    padding: 10px;
+    width: 120px;
+    border: 2px solid var(--color-pistachio);
+    border-radius: var(--radius-md);
+    text-align: right;
+    color: var(--color-chocolate);
+    font-weight: bold;
+}
+
+input[type="number"]:focus {
+    outline: none;
+    border-color: var(--color-pistachio-dark);
+}
+
+.result-group {
+    text-align: right;
+    background-color: var(--color-gray-100);
+    padding: 20px 30px;
+    border-radius: var(--radius-md);
+}
+
+.total-cost {
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+}
+
+.total-cost strong {
+    font-size: 2.5rem;
+    color: var(--color-pistachio-dark);
+    display: block;
+    line-height: 1.2;
+}
+
+.disclaimer {
+    font-size: 0.8rem;
+    color: var(--color-gray-500);
+}
+
+/* Ingredients Grid */
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.badge {
+    background: var(--color-chocolate);
+    color: var(--color-cream);
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.ingredients-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 24px;
+}
+
+.ingredient-card {
+    background: var(--color-white);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: 0 4px 15px var(--color-shadow);
+    transition: transform 0.3s ease;
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+.ingredient-card:hover {
+    transform: translateY(-5px);
+}
+
+.card-image-placeholder {
+    height: 140px;
+    background-color: var(--color-pistachio);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-white);
+    font-size: 2rem;
+}
+
+.card-content {
+    padding: 20px;
+}
+
+.card-content h3 {
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+}
+
+.unit-price {
+    font-size: 0.9rem;
+    color: var(--color-gray-500);
+    margin-bottom: 15px;
+}
+
+.price-tag {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-chocolate);
+    margin-bottom: 15px;
+    display: block;
+}
+
+.buy-btn {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: var(--color-chocolate);
+    color: var(--color-cream);
+    text-align: center;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: background 0.2s;
+}
+
+.buy-btn:hover {
+    background-color: var(--color-chocolate-light);
+}
+
+/* Recipe Steps */
+.steps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+.step-card {
+    position: relative;
+    background: var(--color-white);
+    padding: 30px;
+    border-radius: var(--radius-md);
+    border-left: 5px solid var(--color-pistachio);
+}
+
+.step-num {
+    position: absolute;
+    top: -15px;
+    right: 20px;
+    font-family: var(--font-heading);
+    font-size: 3rem;
+    color: rgba(147, 197, 114, 0.2);
+    font-weight: bold;
+}
+
+.step-card h3 {
+    margin-bottom: 10px;
+    font-size: 1.3rem;
+}
+
+/* Footer */
+footer {
+    background-color: var(--color-chocolate);
+    color: var(--color-cream);
+    text-align: center;
+    padding: 30px 0;
+    margin-top: 60px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .hero h1 { font-size: 2rem; }
+    .calculator-card { flex-direction: column; text-align: center; }
+    .result-group { width: 100%; text-align: center; }
+    input[type="number"] { width: 100%; }
+}
