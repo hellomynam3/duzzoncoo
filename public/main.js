@@ -99,6 +99,14 @@ const totalPriceElement = document.getElementById('total-price');
 const coreIngredientsContainer = document.getElementById('ingredients-core');
 const doughIngredientsContainer = document.getElementById('ingredients-dough');
 
+// Savings Panel Elements
+const marketTotalDisplay = document.getElementById('market-total-display');
+const homeTotalDisplay = document.getElementById('home-total-display');
+const savingsAmountDisplay = document.getElementById('savings-amount');
+const savingsRatioDisplay = document.getElementById('savings-ratio');
+const homeCostBar = document.getElementById('home-cost-bar');
+const unitCostDisplay = document.getElementById('unit-cost');
+
 // Modal Elements
 const modal = document.getElementById('ingredient-modal');
 const closeModalBtn = document.querySelector('.close-modal');
@@ -196,30 +204,58 @@ function closeModal() {
     modal.classList.add('hidden');
 }
 
-// Calculate Total Cost
+// Calculate Total Cost & Savings
 function calculateTotal() {
     const count = parseInt(cookieCountInput.value) || 0;
-    
-    if (count < 0) {
+    const MARKET_PRICE_PER_UNIT = 6000; // 시중 평균 판매가
+
+    if (count <= 0) {
         totalPriceElement.textContent = '0원';
+        marketTotalDisplay.textContent = '0원';
+        homeTotalDisplay.textContent = '0원';
+        savingsAmountDisplay.textContent = '0원';
+        homeCostBar.style.width = '0%';
         return;
     }
 
     let totalCost = 0;
 
     ingredientsData.forEach(ing => {
-        // 필요한 총 g수
         const totalGramsNeeded = ing.gramsPerCookie * count;
-        // 100g 단위로 가격 책정되어 있으므로 비례 계산
+        // 일부 재료(식용유 등)는 ml 단위지만 가격계산 로직은 동일
         const cost = (totalGramsNeeded / 100) * ing.pricePerUnit;
         totalCost += cost;
     });
 
     // 10원 단위 반올림
     totalCost = Math.round(totalCost / 10) * 10;
-    
-    // Animation effect for numbers could be added here
+    const unitCost = Math.round(totalCost / count);
+
+    // Savings Logic
+    const marketTotal = count * MARKET_PRICE_PER_UNIT;
+    const savings = marketTotal - totalCost;
+    const ratio = totalCost > 0 ? (marketTotal / totalCost).toFixed(1) : 0;
+    const barWidth = Math.min((totalCost / marketTotal) * 100, 100); // 최대 100%
+
+    // Update UI
     totalPriceElement.textContent = formatCurrency(totalCost);
+    marketTotalDisplay.textContent = formatCurrency(marketTotal);
+    homeTotalDisplay.textContent = formatCurrency(totalCost);
+    unitCostDisplay.textContent = formatCurrency(unitCost);
+    
+    if (savings > 0) {
+        savingsAmountDisplay.textContent = formatCurrency(savings);
+        savingsRatioDisplay.textContent = `🎉 약 ${ratio}배 이득! (개당 ${formatCurrency(unitCost)})`;
+    } else {
+        savingsAmountDisplay.textContent = "0원";
+        savingsRatioDisplay.textContent = "재료비가 더 비싸요 😅";
+    }
+
+    // Update Bar Graph
+    // 약간의 딜레이를 주어 애니메이션 효과 극대화 (선택사항)
+    requestAnimationFrame(() => {
+        homeCostBar.style.width = `${barWidth}%`;
+    });
 }
 
 // Utility: Format Currency

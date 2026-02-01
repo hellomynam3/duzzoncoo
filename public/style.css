@@ -536,10 +536,127 @@ html {
     display: inline-block;
 }
 
+/* Savings Panel */
+.savings-panel {
+    width: 100%;
+    background-color: var(--color-gray-100);
+    padding: 25px;
+    border-radius: var(--radius-md);
+    margin: 20px 0;
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+.savings-panel h3 {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    color: var(--color-chocolate);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.comparison-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.bar-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.bar-label {
+    font-size: 0.9rem;
+    color: var(--color-gray-500);
+    font-weight: bold;
+}
+
+.bar-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.bar {
+    height: 24px;
+    border-radius: 12px;
+    transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.market-bar {
+    background-color: #d1d1d1;
+}
+
+.home-bar {
+    background-color: var(--color-pistachio);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.bar-value {
+    font-size: 0.9rem;
+    font-weight: bold;
+    min-width: 80px;
+    text-align: right;
+}
+
+.savings-text {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--color-chocolate);
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+.savings-text span {
+    color: #d84315; /* Deep orange for emphasis */
+}
+
+.savings-badge {
+    display: inline-block;
+    background-color: #FFF176; /* Yellow */
+    color: #333;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 1rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    width: 100%;
+    text-align: center;
+}
+
+@keyframes popIn {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+/* Dark Mode for Savings Panel */
+body.dark-mode .savings-panel {
+    background-color: #2c2c2c;
+    border-color: #444;
+}
+
+body.dark-mode .market-bar {
+    background-color: #555;
+}
+
+body.dark-mode .savings-text span {
+    color: #ff8a65;
+}
+
+body.dark-mode .savings-badge {
+    background-color: #fdd835;
+    color: #000;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
     .hero h1 { font-size: 2rem; }
     .calculator-card { flex-direction: column; text-align: center; }
+    .savings-panel { padding: 15px; }
     .result-group { width: 100%; text-align: center; }
     input[type="number"] { width: 100%; }
     .theme-btn { top: 20px; right: 20px; background: rgba(0,0,0,0.2); }

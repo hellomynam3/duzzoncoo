@@ -36,6 +36,32 @@
                         <span>개</span>
                     </div>
                 </div>
+                
+                <!-- 가성비 분석 패널 -->
+                <div class="savings-panel">
+                    <h3>📊 홈베이킹 가성비 분석</h3>
+                    <div class="savings-content">
+                        <div class="comparison-bars">
+                            <div class="bar-group">
+                                <span class="bar-label">카페 (개당 6,000원)</span>
+                                <div class="bar-wrapper">
+                                    <div class="bar market-bar" style="width: 100%;"></div>
+                                    <span class="bar-value" id="market-total-display">60,000원</span>
+                                </div>
+                            </div>
+                            <div class="bar-group">
+                                <span class="bar-label">집에서 (개당 <span id="unit-cost">0원</span>)</span>
+                                <div class="bar-wrapper">
+                                    <div class="bar home-bar" id="home-cost-bar" style="width: 30%;"></div>
+                                    <span class="bar-value" id="home-total-display">0원</span>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="savings-text">총 <span id="savings-amount">0원</span> 아꼈어요!</p>
+                        <p class="savings-badge" id="savings-ratio">🎉 약 3배 이득!</p>
+                    </div>
+                </div>
+
                 <div class="result-group">
                     <div class="total-cost">
                         <span>예상 총 재료비</span>
