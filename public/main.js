@@ -106,6 +106,7 @@ const savingsAmountDisplay = document.getElementById('savings-amount');
 const savingsRatioDisplay = document.getElementById('savings-ratio');
 const homeCostBar = document.getElementById('home-cost-bar');
 const unitCostDisplay = document.getElementById('unit-cost');
+const copyListBtn = document.getElementById('copy-list-btn');
 
 // Modal Elements
 const modal = document.getElementById('ingredient-modal');
@@ -125,6 +126,7 @@ function init() {
     
     // Event Listeners
     cookieCountInput.addEventListener('input', calculateTotal);
+    copyListBtn.addEventListener('click', copyShoppingList);
     
     // Modal Close Events
     closeModalBtn.addEventListener('click', closeModal);
@@ -169,6 +171,48 @@ function renderIngredients() {
         .filter(ing => ing.type === 'dough')
         .map(createCardHTML)
         .join('');
+}
+
+// Copy Shopping List
+async function copyShoppingList() {
+    const count = parseInt(cookieCountInput.value) || 0;
+    if (count <= 0) return;
+
+    let text = `[🍪 두쫀쿠 ${count}개 만들기 장보기 리스트]\n\n`;
+    let totalCost = 0;
+
+    // Core Ingredients
+    text += `--- 필링 재료 ---\n`;
+    ingredientsData.filter(i => i.type === 'core').forEach(ing => {
+        const grams = ing.gramsPerCookie * count;
+        text += `- ${ing.name}: ${grams}g\n`;
+        totalCost += (grams / 100) * ing.pricePerUnit;
+    });
+
+    // Dough Ingredients
+    text += `\n--- 반죽 재료 ---\n`;
+    ingredientsData.filter(i => i.type === 'dough').forEach(ing => {
+        const grams = ing.gramsPerCookie * count;
+        text += `- ${ing.name}: ${grams}${ing.id === 'cooking-oil' ? 'ml' : 'g'}\n`;
+        totalCost += (grams / 100) * ing.pricePerUnit;
+    });
+
+    totalCost = Math.round(totalCost / 10) * 10;
+    text += `\n==========\n💰 예상 재료비: ${formatCurrency(totalCost)}\n🔗 https://duzzoncoo.pages.dev`;
+
+    try {
+        await navigator.clipboard.writeText(text);
+        const originalText = copyListBtn.textContent;
+        copyListBtn.textContent = "✅ 복사 완료!";
+        copyListBtn.style.backgroundColor = "#4CAF50";
+        
+        setTimeout(() => {
+            copyListBtn.textContent = originalText;
+            copyListBtn.style.backgroundColor = "";
+        }, 2000);
+    } catch (err) {
+        alert('클립보드 복사에 실패했습니다.');
+    }
 }
 
 // Open Modal

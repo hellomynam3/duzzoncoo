@@ -3,9 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>두바이 쿠키 재료 탐색기</title>
+    <title>두바이 쫀득 쿠키(두쫀쿠) 계산기 & 원조 레시피</title>
+    <meta name="description" content="원조 몬트쿠키 스타일의 노오븐 두바이 쫀득 쿠키(두쫀쿠) 레시피와 재료비 견적 계산기. 마시멜로 반죽 실패 없는 꿀팁과 최저가 재료 정보를 제공합니다.">
+    <meta property="og:title" content="두쫀쿠 재료 견적 & 원조 레시피">
+    <meta property="og:description" content="집에서 만드는 두바이 쫀득 쿠키! 재료비가 얼마나 들까? 실패 없는 마시멜로 반죽 비법 공개.">
+    <meta property="og:type" content="website">
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    
+    <!-- Google Search Structured Data (Recipe) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org/",
+      "@type": "Recipe",
+      "name": "원조 스타일 두바이 쫀득 쿠키 (노오븐)",
+      "author": {
+        "@type": "Person",
+        "name": "Dubai Cookie Finder (Based on Mont Cookie Origin)"
+      },
+      "description": "밀가루 없이 마시멜로로 만드는 겉쫀득 속바삭 두바이 스타일 쿠키. 오븐 없이 프라이팬으로 만드는 원조 레시피입니다.",
+      "prepTime": "PT30M",
+      "cookTime": "PT20M",
+      "totalTime": "PT50M",
+      "keywords": "두바이초콜릿, 두쫀쿠, 마시멜로쿠키, 노오븐베이킹",
+      "recipeYield": "10개",
+      "recipeCategory": "Dessert",
+      "recipeCuisine": "Korean Fusion",
+      "recipeIngredient": [
+        "카다이프 면 150g",
+        "피스타치오 스프레드 200g",
+        "화이트 초콜릿 50g",
+        "마시멜로 130g",
+        "탈지분유 10g",
+        "코코아 파우더 30g"
+      ],
+      "recipeInstructions": [
+        {
+          "@type": "HowToStep",
+          "text": "카다이프를 버터에 볶은 뒤 피스타치오 스프레드, 녹인 화이트 초콜릿과 섞어 필링을 만듭니다."
+        },
+        {
+          "@type": "HowToStep",
+          "text": "필링을 15g씩 둥글게 빚어 냉동실에서 1시간 동안 단단하게 굳힙니다."
+        },
+        {
+          "@type": "HowToStep",
+          "text": "팬에 버터와 마시멜로를 약불로 녹인 뒤 불을 끄고 가루 재료를 섞어 반죽을 만듭니다."
+        },
+        {
+          "@type": "HowToStep",
+          "text": "기름칠한 손으로 반죽을 떼어 얼린 필링을 감싸고 코코아 파우더를 묻혀 완성합니다."
+        }
+      ]
+    }
+    </script>
 </head>
 <body>
     <header class="hero">
@@ -15,7 +66,7 @@
                     <li><a href="#calculator">견적 계산기</a></li>
                     <li><a href="#history">원조의 역사</a></li>
                     <li><a href="#recipe">원조 레시피</a></li>
-                    <li><a href="#ingredients">전체 재료</a></li>
+                    <li><a href="#faq">자주 묻는 질문</a></li>
                 </ul>
             </nav>
             <button id="theme-toggle" class="theme-btn" aria-label="다크 모드 전환">🌙</button>
@@ -60,6 +111,10 @@
                         <p class="savings-text">총 <span id="savings-amount">0원</span> 아꼈어요!</p>
                         <p class="savings-badge" id="savings-ratio">🎉 약 3배 이득!</p>
                     </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button id="copy-list-btn" class="action-btn primary-btn">📋 장보기 리스트 복사</button>
                 </div>
 
                 <div class="result-group">
@@ -153,6 +208,29 @@
                 </div>
             </div>
         </section>
+        
+        <!-- FAQ 섹션 -->
+        <section id="faq" class="faq-section">
+            <h2>❓ 자주 묻는 질문 (FAQ)</h2>
+            <div class="faq-list">
+                <details class="faq-item">
+                    <summary>Q. 마시멜로 반죽이 돌처럼 딱딱해졌어요!</summary>
+                    <p>마시멜로는 센 불에서 가열하면 식었을 때 사탕처럼 딱딱해집니다. <strong>반드시 약불</strong>에서 천천히 녹여주세요. 또한 반죽이 너무 식으면 굳어서 성형하기 힘드니, 약간 온기가 있을 때 빠르게 작업해야 합니다.</p>
+                </details>
+                <details class="faq-item">
+                    <summary>Q. 카다이프 면 대신 다른 걸 써도 되나요?</summary>
+                    <p>네! 가장 좋은 대체재는 <strong>'얇은 소면'</strong>이나 '건면'입니다. 잘게 부수어 버터에 튀기듯 볶으면 카다이프와 놀랍도록 비슷한 '빠작빠작'한 식감을 낼 수 있습니다.</p>
+                </details>
+                <details class="faq-item">
+                    <summary>Q. 왜 밀가루를 안 쓰나요?</summary>
+                    <p>두바이 쫀득 쿠키는 일반적인 쿠키가 아니라 <strong>마시멜로를 베이스로 한 디저트</strong>이기 때문입니다. 오븐에 굽는 과정 없이 마시멜로의 쫀득함(Chewy)을 살리는 것이 원조 레시피의 특징입니다.</p>
+                </details>
+                <details class="faq-item">
+                    <summary>Q. 필링이 자꾸 튀어나와요.</summary>
+                    <p>필링을 <strong>냉동실에서 1시간 이상</strong> 꽝꽝 얼리지 않으면 감쌀 때 녹아서 흘러나옵니다. 돌처럼 단단할 때 감싸야 모양 잡기가 쉽습니다.</p>
+                </details>
+            </div>
+        </section>
 
         <!-- 재료 리스트 섹션 -->
         <section id="ingredients" class="ingredients-section">
@@ -176,9 +254,12 @@
     <footer>
         <div class="container">
             <p>&copy; 2026 Dubai Cookie Ingredients Finder. All rights reserved.</p>
+            <p style="font-size: 0.8rem; opacity: 0.7; margin-top: 5px;">
+                Data based on average market prices in Korea. Independent service not affiliated with Mont Cookie.
+            </p>
         </div>
     </footer>
-
+    
     <!-- 재료 상세 모달 -->
     <div id="ingredient-modal" class="modal hidden">
         <div class="modal-content">
