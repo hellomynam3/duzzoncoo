@@ -1,8 +1,10 @@
 // Mock Data for Ingredients
 // Data Source: https://github.com/hellomynam3/dubaizzon (ingredients.ts)
 const ingredientsData = [
+    // --- Core Ingredients (Filling & Topping) ---
     {
         id: 'kataifi',
+        type: 'core',
         name: '카다이프 면 (Kataifi)',
         unit: '100g',
         pricePerUnit: 2580,
@@ -13,6 +15,7 @@ const ingredientsData = [
     },
     {
         id: 'pistachio-spread',
+        type: 'core',
         name: '피스타치오 스프레드',
         unit: '100g',
         pricePerUnit: 9250,
@@ -23,6 +26,7 @@ const ingredientsData = [
     },
     {
         id: 'dark-chocolate',
+        type: 'core',
         name: '커버춰 다크 초콜릿',
         unit: '100g',
         pricePerUnit: 990,
@@ -33,20 +37,56 @@ const ingredientsData = [
     },
     {
         id: 'butter',
-        name: '무염 버터',
+        type: 'core',
+        name: '무염 버터 (필링+반죽)',
         unit: '100g',
         pricePerUnit: 1888,
-        gramsPerCookie: 10,
+        gramsPerCookie: 25, // 필링 10g + 반죽 15g
         emoji: '🧈',
         searchKeyword: '무염버터',
         tip: '일반 버터 대신 발효 버터(고메 버터)를 사용하면 카다이프를 볶을 때 풍미가 훨씬 깊고 고급스러워집니다.'
+    },
+    // --- Dough Ingredients (Cookie Base) ---
+    {
+        id: 'flour',
+        type: 'dough',
+        name: '중력분 (밀가루)',
+        unit: '1kg',
+        pricePerUnit: 250, // 1kg 2500원 -> 100g 250원
+        gramsPerCookie: 20,
+        emoji: '🌾',
+        searchKeyword: '중력분',
+        tip: '쿠키의 쫀득한 식감을 위해서는 박력분보다는 단백질 함량이 적당한 중력분을 사용하는 것이 좋습니다.'
+    },
+    {
+        id: 'sugar',
+        type: 'dough',
+        name: '설탕 (황설탕/백설탕)',
+        unit: '1kg',
+        pricePerUnit: 200, // 1kg 2000원 -> 100g 200원
+        gramsPerCookie: 15,
+        emoji: '🧂',
+        searchKeyword: '황설탕',
+        tip: '황설탕은 쿠키에 수분감과 쫀득함을 주고, 백설탕은 바삭함을 줍니다. 두 가지를 섞어 쓰는 것이 베스트!'
+    },
+    {
+        id: 'egg',
+        type: 'dough',
+        name: '계란 (특란)',
+        unit: '10구(약 500g)',
+        pricePerUnit: 800, // 10구 4000원 -> 500g 4000원 -> 100g 800원
+        gramsPerCookie: 5, // 쿠키 10개당 계란 1개(50g) 사용 가정
+        emoji: '🥚',
+        searchKeyword: '동물복지 유정란',
+        tip: '실온에 미리 꺼내두어 찬기를 뺀 계란을 사용해야 버터와 분리되지 않고 매끄럽게 유화됩니다.'
     }
 ];
 
 // DOM Elements
 const cookieCountInput = document.getElementById('cookie-count');
 const totalPriceElement = document.getElementById('total-price');
-const ingredientsListContainer = document.getElementById('ingredients-list');
+const coreIngredientsContainer = document.getElementById('ingredients-core');
+const doughIngredientsContainer = document.getElementById('ingredients-dough');
 
 // Modal Elements
 const modal = document.getElementById('ingredient-modal');
@@ -83,7 +123,7 @@ function init() {
 
 // Render Ingredient Cards
 function renderIngredients() {
-    ingredientsListContainer.innerHTML = ingredientsData.map(ing => `
+    const createCardHTML = (ing) => `
         <article class="ingredient-card">
             <div class="card-image-placeholder">
                 ${ing.emoji}
@@ -91,13 +131,25 @@ function renderIngredients() {
             <div class="card-content">
                 <h3>${ing.name}</h3>
                 <p class="unit-price">기준: ${ing.unit}</p>
-                <span class="price-tag">${formatCurrency(ing.pricePerUnit)}</span>
+                <span class="price-tag">${formatCurrency(ing.pricePerUnit)} <small style="font-size:0.8rem; font-weight:normal;">/100g</small></span>
                 <button class="buy-btn" onclick="openModal('${ing.id}')">
                     🔍 가격 비교 & 팁
                 </button>
             </div>
         </article>
-    `).join('');
+    `;
+
+    // Render Core Ingredients
+    coreIngredientsContainer.innerHTML = ingredientsData
+        .filter(ing => ing.type === 'core')
+        .map(createCardHTML)
+        .join('');
+
+    // Render Dough Ingredients
+    doughIngredientsContainer.innerHTML = ingredientsData
+        .filter(ing => ing.type === 'dough')
+        .map(createCardHTML)
+        .join('');
 }
 
 // Open Modal
