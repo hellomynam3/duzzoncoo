@@ -319,6 +319,109 @@ body.dark-mode .badge {
     font-size: 1.3rem;
 }
 
+/* Tools Checklist */
+.tools-card {
+    background: var(--color-white);
+    padding: 30px;
+    border-radius: var(--radius-lg);
+    box-shadow: 0 10px 30px var(--color-shadow);
+}
+
+.tools-intro {
+    margin-bottom: 20px;
+    font-weight: bold;
+    color: var(--color-gray-500);
+    text-align: center;
+}
+
+.tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+}
+
+.tool-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 15px;
+    background-color: var(--color-gray-100);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+.tool-item:hover {
+    transform: translateY(-2px);
+    background-color: var(--color-pistachio);
+    color: white;
+}
+
+.tool-checkbox {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.tool-name {
+    font-weight: bold;
+    font-size: 0.95rem;
+}
+
+/* Pro Tips Section */
+.tips-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+.tip-card {
+    background: var(--color-white);
+    padding: 30px;
+    border-radius: var(--radius-md);
+    box-shadow: 0 4px 15px var(--color-shadow);
+    text-align: center;
+    border-top: 5px solid var(--color-pistachio);
+    transition: transform 0.3s;
+}
+
+.tip-card:hover {
+    transform: translateY(-10px);
+}
+
+.tip-icon {
+    font-size: 3rem;
+    margin-bottom: 15px;
+}
+
+.tip-card h3 {
+    margin-bottom: 15px;
+    color: var(--color-chocolate);
+    font-size: 1.3rem;
+}
+
+.tip-card p {
+    font-size: 0.95rem;
+    color: var(--color-gray-500);
+    line-height: 1.6;
+}
+
+/* Dark Mode Additions */
+body.dark-mode .tools-card,
+body.dark-mode .tip-card {
+    background-color: #1E1E1E;
+}
+
+body.dark-mode .tool-item {
+    background-color: #2C2C2C;
+    color: #E0E0E0;
+}
+
+body.dark-mode .tool-item:hover {
+    background-color: var(--color-pistachio);
+    color: white;
+}
+
 /* Footer */
 footer {
     background-color: var(--color-chocolate);

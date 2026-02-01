@@ -123,7 +123,8 @@ const themeToggleBtn = document.getElementById('theme-toggle');
 function init() {
     renderIngredients();
     calculateTotal();
-    initRecipeCheckboxes(); // New function call
+    initRecipeCheckboxes();
+    initToolCheckboxes(); // New function call
     
     // Event Listeners
     cookieCountInput.addEventListener('input', calculateTotal);
@@ -153,6 +154,25 @@ function initRecipeCheckboxes() {
                 stepCard.classList.add('completed');
             } else {
                 stepCard.classList.remove('completed');
+            }
+        });
+    });
+}
+
+// Tool Checkbox Logic
+function initToolCheckboxes() {
+    const checkboxes = document.querySelectorAll('.tool-checkbox');
+    checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', (e) => {
+            const toolItem = e.target.closest('.tool-item');
+            if (e.target.checked) {
+                toolItem.style.opacity = '0.5';
+                toolItem.style.textDecoration = 'line-through';
+                toolItem.style.backgroundColor = 'var(--color-gray-100)';
+            } else {
+                toolItem.style.opacity = '1';
+                toolItem.style.textDecoration = 'none';
+                toolItem.style.backgroundColor = '';
             }
         });
     });
