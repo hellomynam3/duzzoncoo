@@ -1,6 +1,7 @@
 // Mock Data for Ingredients
 // Data Source: 몬트쿠키 원조 레시피 기반 재구성
 const ingredientsData = [
+    // ... (Data remains the same, assuming it's correctly defined above) ...
     // --- Core Ingredients (Filling) ---
     {
         id: 'kataifi',
@@ -93,55 +94,73 @@ const ingredientsData = [
     }
 ];
 
-// DOM Elements
-const cookieCountInput = document.getElementById('cookie-count');
-const totalPriceElement = document.getElementById('total-price');
-const coreIngredientsContainer = document.getElementById('ingredients-core');
-const doughIngredientsContainer = document.getElementById('ingredients-dough');
-
-// Savings Panel Elements
-const marketTotalDisplay = document.getElementById('market-total-display');
-const homeTotalDisplay = document.getElementById('home-total-display');
-const savingsAmountDisplay = document.getElementById('savings-amount');
-const savingsRatioDisplay = document.getElementById('savings-ratio');
-const homeCostBar = document.getElementById('home-cost-bar');
-const unitCostDisplay = document.getElementById('unit-cost');
-const copyListBtn = document.getElementById('copy-list-btn');
-
-// Modal Elements
-const modal = document.getElementById('ingredient-modal');
-const closeModalBtn = document.querySelector('.close-modal');
-const modalEmoji = document.getElementById('modal-emoji');
-const modalTitle = document.getElementById('modal-title');
-const modalDesc = document.getElementById('modal-desc');
-const modalLinks = document.getElementById('modal-links');
-
-// Theme Toggle
-const themeToggleBtn = document.getElementById('theme-toggle');
+// DOM Elements Variables (Declared globally, initialized in init)
+let cookieCountInput, totalPriceElement, coreIngredientsContainer, doughIngredientsContainer;
+let marketTotalDisplay, homeTotalDisplay, savingsAmountDisplay, savingsRatioDisplay, homeCostBar, unitCostDisplay, copyListBtn;
+let modal, closeModalBtn, modalEmoji, modalTitle, modalDesc, modalLinks;
+let themeToggleBtn;
 
 // Initialize
 function init() {
-    renderIngredients();
-    calculateTotal();
-    initRecipeCheckboxes();
-    initToolCheckboxes(); // New function call
-    
-    // Event Listeners
-    cookieCountInput.addEventListener('input', calculateTotal);
-    copyListBtn.addEventListener('click', copyShoppingList);
-    
-    // Modal Close Events
-    closeModalBtn.addEventListener('click', closeModal);
-    window.addEventListener('click', (e) => {
-        if (e.target === modal) closeModal();
-    });
+    try {
+        console.log("Initializing Dubai Cookie Finder...");
 
-    // Theme Toggle
-    themeToggleBtn.addEventListener('click', () => {
-        document.body.classList.toggle('dark-mode');
-        const isDark = document.body.classList.contains('dark-mode');
-        themeToggleBtn.textContent = isDark ? '☀️' : '🌙';
-    });
+        // Initialize DOM Elements
+        cookieCountInput = document.getElementById('cookie-count');
+        totalPriceElement = document.getElementById('total-price');
+        coreIngredientsContainer = document.getElementById('ingredients-core');
+        doughIngredientsContainer = document.getElementById('ingredients-dough');
+
+        marketTotalDisplay = document.getElementById('market-total-display');
+        homeTotalDisplay = document.getElementById('home-total-display');
+        savingsAmountDisplay = document.getElementById('savings-amount');
+        savingsRatioDisplay = document.getElementById('savings-ratio');
+        homeCostBar = document.getElementById('home-cost-bar');
+        unitCostDisplay = document.getElementById('unit-cost');
+        copyListBtn = document.getElementById('copy-list-btn');
+
+        modal = document.getElementById('ingredient-modal');
+        closeModalBtn = document.querySelector('.close-modal');
+        modalEmoji = document.getElementById('modal-emoji');
+        modalTitle = document.getElementById('modal-title');
+        modalDesc = document.getElementById('modal-desc');
+        modalLinks = document.getElementById('modal-links');
+
+        themeToggleBtn = document.getElementById('theme-toggle');
+
+        if (!cookieCountInput || !coreIngredientsContainer) {
+            console.error("Critical DOM elements missing!");
+            return;
+        }
+
+        renderIngredients();
+        calculateTotal();
+        initRecipeCheckboxes();
+        initToolCheckboxes();
+        
+        // Event Listeners
+        cookieCountInput.addEventListener('input', calculateTotal);
+        copyListBtn.addEventListener('click', copyShoppingList);
+        
+        // Modal Close Events
+        if (closeModalBtn) closeModalBtn.addEventListener('click', closeModal);
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal();
+        });
+
+        // Theme Toggle
+        if (themeToggleBtn) {
+            themeToggleBtn.addEventListener('click', () => {
+                document.body.classList.toggle('dark-mode');
+                const isDark = document.body.classList.contains('dark-mode');
+                themeToggleBtn.textContent = isDark ? '☀️' : '🌙';
+            });
+        }
+        
+        console.log("Initialization complete.");
+    } catch (error) {
+        console.error("Error during initialization:", error);
+    }
 }
 
 // Recipe Checkbox Logic
@@ -150,10 +169,12 @@ function initRecipeCheckboxes() {
     checkboxes.forEach(checkbox => {
         checkbox.addEventListener('change', (e) => {
             const stepCard = e.target.closest('.recipe-step');
-            if (e.target.checked) {
-                stepCard.classList.add('completed');
-            } else {
-                stepCard.classList.remove('completed');
+            if (stepCard) {
+                if (e.target.checked) {
+                    stepCard.classList.add('completed');
+                } else {
+                    stepCard.classList.remove('completed');
+                }
             }
         });
     });
@@ -165,14 +186,16 @@ function initToolCheckboxes() {
     checkboxes.forEach(checkbox => {
         checkbox.addEventListener('change', (e) => {
             const toolItem = e.target.closest('.tool-item');
-            if (e.target.checked) {
-                toolItem.style.opacity = '0.5';
-                toolItem.style.textDecoration = 'line-through';
-                toolItem.style.backgroundColor = 'var(--color-gray-100)';
-            } else {
-                toolItem.style.opacity = '1';
-                toolItem.style.textDecoration = 'none';
-                toolItem.style.backgroundColor = '';
+            if (toolItem) {
+                if (e.target.checked) {
+                    toolItem.style.opacity = '0.5';
+                    toolItem.style.textDecoration = 'line-through';
+                    toolItem.style.backgroundColor = 'var(--color-gray-100)';
+                } else {
+                    toolItem.style.opacity = '1';
+                    toolItem.style.textDecoration = 'none';
+                    toolItem.style.backgroundColor = '';
+                }
             }
         });
     });
@@ -180,6 +203,8 @@ function initToolCheckboxes() {
 
 // Render Ingredient Cards
 function renderIngredients() {
+    if (!ingredientsData) return;
+
     const createCardHTML = (ing) => `
         <article class="ingredient-card">
             <div class="card-image-placeholder">
@@ -197,16 +222,20 @@ function renderIngredients() {
     `;
 
     // Render Core Ingredients
-    coreIngredientsContainer.innerHTML = ingredientsData
-        .filter(ing => ing.type === 'core')
-        .map(createCardHTML)
-        .join('');
+    if (coreIngredientsContainer) {
+        coreIngredientsContainer.innerHTML = ingredientsData
+            .filter(ing => ing.type === 'core')
+            .map(createCardHTML)
+            .join('');
+    }
 
     // Render Dough Ingredients
-    doughIngredientsContainer.innerHTML = ingredientsData
-        .filter(ing => ing.type === 'dough')
-        .map(createCardHTML)
-        .join('');
+    if (doughIngredientsContainer) {
+        doughIngredientsContainer.innerHTML = ingredientsData
+            .filter(ing => ing.type === 'dough')
+            .map(createCardHTML)
+            .join('');
+    }
 }
 
 // Copy Shopping List
@@ -253,6 +282,7 @@ async function copyShoppingList() {
 
 // Open Modal
 window.openModal = function(id) {
+    if (!modal) return;
     const ing = ingredientsData.find(item => item.id === id);
     if (!ing) return;
 
@@ -281,11 +311,12 @@ window.openModal = function(id) {
 }
 
 function closeModal() {
-    modal.classList.add('hidden');
+    if (modal) modal.classList.add('hidden');
 }
 
 // Calculate Total Cost & Savings
 function calculateTotal() {
+    if (!cookieCountInput) return;
     const count = parseInt(cookieCountInput.value) || 0;
     const MARKET_PRICE_PER_UNIT = 6000; // 시중 평균 판매가
 
